@@ -6,7 +6,7 @@ import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import SignInAndSignUpPage from './pages/sign-in-sign-up/sign-in-sign-up.component'; 
 import Header from './components/header/header.component';
-import { auth } from './firebase/firebase.utils'; 
+import { auth, createUserProfileDocument } from './firebase/firebase.utils'; 
 
 class App extends React.Component {
   constructor(){
@@ -19,10 +19,25 @@ class App extends React.Component {
 
   unsubscribeFromAuth = null; //calling a new method - default is null 
 
+  //LESSON 93
   componentDidMount(){  //Google authentication sign-in
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(user => { //from firebase/auth library
-      this.setState({currentUser: user}); 
-      console.log(user); 
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => { //from firebase/auth library 
+      if(userAuth){
+        const userRef = await createUserProfileDocument(userAuth); //checks database. Function from firebase.utils.js
+        
+        userRef.onSnapshot(snapShot => {
+          this.setState({
+            currentUser:{
+              id: snapShot.id,
+              ...snapShot.data()
+            }
+          });
+
+          console.log(this.state);
+        }); 
+      } else{
+        this.setState({ currentUser: userAuth }); 
+      }
     }); 
   }
 
