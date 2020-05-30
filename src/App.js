@@ -5,21 +5,43 @@ import './App.css';
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import SignInAndSignUpPage from './pages/sign-in-sign-up/sign-in-sign-up.component'; 
-import Header from './components/header/header.component'; 
+import Header from './components/header/header.component';
+import { auth } from './firebase/firebase.utils'; 
 
-function App() {
-  return (
-    <div>
+class App extends React.Component {
+  constructor(){
+    super(); 
+
+    this.state = {
+      currentUser: null 
+    }
+  }; 
+
+  unsubscribeFromAuth = null; //calling a new method - default is null 
+
+  componentDidMount(){  //Google authentication sign-in
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(user => { //from firebase/auth library
+      this.setState({currentUser: user}); 
+      console.log(user); 
+    }); 
+  }
+
+  componentWillUnmount(){
+    this.unsubscribeFromAuth(); 
+  }
+
+  render(){
+    return (
       <div>
-        <Header /> 
+        <Header currentUser={this.state.currentUser} /> 
         <Switch> {/* Makes sure only one is rendered. */}
           <Route exact path='/' component={HomePage} /> 
           <Route path='/shop' component={ShopPage} /> 
           <Route path='/signin' component={SignInAndSignUpPage} /> 
         </Switch>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default App;
