@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom'; 
+import { Switch, Route, Redirect } from 'react-router-dom'; //Redirect added on L108 
 import { connect } from 'react-redux'; //L107
 
 
@@ -61,12 +61,22 @@ class App extends React.Component {
         <Switch> {/* Makes sure only one is rendered. */}
           <Route exact path='/' component={HomePage} /> 
           <Route path='/shop' component={ShopPage} /> 
-          <Route path='/signin' component={SignInAndSignUpPage} /> 
+          <Route exact path='/signin' render={()=> //Redirect when sign in process done
+            this.props.currentUser ? 
+            (<Redirect to='/' />) : 
+            (<SignInAndSignUpPage/>)
+            } 
+          /> 
         </Switch>
       </div>
     );
   }
 }
+
+//LESSON 108 - To redirect when sign in process done. 
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser
+})
 
 //LESSON107 - mapDispatchToProps
 const mapDispatchToProps = dispatch => ({
@@ -77,4 +87,7 @@ const mapDispatchToProps = dispatch => ({
  * is going to be an action object that will be passed to every reducer. 
  */
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(
+  mapStateToProps, //L108 : formall null. Changed for the purpost to redirect once logged in.  
+  mapDispatchToProps
+  )(App);

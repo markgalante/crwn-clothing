@@ -8,13 +8,15 @@
  *  payload: can be anything - a flexible property. 
  */
 
+import { UserActionTypes } from './user.types'; 
+
 const INITIAL_STATE = {
     currentUser: null 
 }
 
 const userReducer = (state=INITIAL_STATE, action) => {
     switch (action.type){ //action.type will be a String
-        case 'SET_CURRENT_USER':
+        case UserActionTypes.SET_CURRENT_USER:
             return {
                 ...state, //...state - everything else 
                 currentUser: action.payload 
