@@ -10,6 +10,7 @@ import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import SignInAndSignUpPage from './pages/sign-in-sign-up/sign-in-sign-up.component'; 
 import Header from './components/header/header.component';
+import CheckoutPage from './pages/checkout/checkout.component'; 
 import { auth, createUserProfileDocument } from './firebase/firebase.utils'; 
 
 import { setCurrentUser } from './redux/user/user.actions'; //L107 
@@ -62,6 +63,7 @@ class App extends React.Component {
         <Header/> 
         <Switch> {/* Makes sure only one is rendered. */}
           <Route exact path='/' component={HomePage} /> 
+          <Route exact path='/checkout' component={CheckoutPage} />
           <Route path='/shop' component={ShopPage} /> 
           <Route exact path='/signin' render={()=> //Redirect when sign in process done
             this.props.currentUser ? 
@@ -69,6 +71,7 @@ class App extends React.Component {
             (<SignInAndSignUpPage/>)
             } 
           /> 
+          
         </Switch>
       </div>
     );
