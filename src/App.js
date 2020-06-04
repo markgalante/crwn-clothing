@@ -74,7 +74,7 @@ class App extends React.Component {
 }
 
 //LESSON 108 - To redirect when sign in process done. 
-const mapStateToProps = ({ user }) => ({
+const mapStateToProps = ({ user }) => ({ //Called when the store state changes 
   currentUser: user.currentUser
 })
 
