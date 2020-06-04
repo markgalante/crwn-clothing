@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom'; //Redirect added on L108 
 import { connect } from 'react-redux'; //L107
+import { createStructuredSelector } from 'reselect'; //LESSON 121
 
 
 import './App.css';
@@ -12,6 +13,7 @@ import Header from './components/header/header.component';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils'; 
 
 import { setCurrentUser } from './redux/user/user.actions'; //L107 
+import { selectCurrentUser } from './redux/user/user.selectors'; //LESSON 121
 
 class App extends React.Component {
   //DELETED IN LESSON 107 when using mapDispachToProps
@@ -74,8 +76,8 @@ class App extends React.Component {
 }
 
 //LESSON 108 - To redirect when sign in process done. 
-const mapStateToProps = ({ user }) => ({ //Called when the store state changes 
-  currentUser: user.currentUser
+const mapStateToProps = createStructuredSelector({ //Called when the store state changes 
+  currentUser: selectCurrentUser
 })
 
 //LESSON107 - mapDispatchToProps
