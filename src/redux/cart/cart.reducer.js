@@ -1,9 +1,11 @@
 //LESSON 111 
 
 import { CartActionTypes } from './cart.types'; 
+import { addItemToCart } from './cart.utils'
 
 const INITIAL_STATE = {
-    hidden: true
+    hidden: true, 
+    cartItems: [] //Lesson 113
 }
 
 const cartReducer = (state=INITIAL_STATE, action) => {
@@ -13,6 +15,13 @@ const cartReducer = (state=INITIAL_STATE, action) => {
             ...state,
             hidden: !state.hidden
         };
+
+        case CartActionTypes.ADD_ITEM: //Lesson 113 
+        return{ 
+            ...state, //Returns all of the state
+            cartItems: addItemToCart(state.cartItems, action.payload) //modified lesson 114
+            //cartItems: [...state.cartItems, action.payload] //contains old items (state.cartItem) and appends new item (action.payload)
+        }; 
         default:
             return state; 
     }
