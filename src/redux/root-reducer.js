@@ -7,11 +7,21 @@ Combines all other states together from other reducers.
 */
 
 import { combineReducers } from 'redux';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage'; //States you want to use local storage; 
 
 import userReducer from './user/user.reducer';
 import cartReducer from './cart/cart.reducer'; 
 
-export default combineReducers({
+const persistConfig = {
+    key: 'root', 
+    storage, 
+    whitelist: ['cart'] //contains reducers we want to store. 'user' is being handled by firebase. Therefore, we only want to use 'cart' 
+}
+
+const rootReducer = combineReducers({
     user: userReducer,
     cart: cartReducer
 });
+
+export default persistReducer(persistConfig, rootReducer);
