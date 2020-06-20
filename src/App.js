@@ -49,6 +49,7 @@ class App extends React.Component {
         }); 
       } else{
         setCurrentUser(userAuth); //L107: changed from this.setState({ currentUser: userAuth }) 
+        // addCollectionAndDocuments('collections', collectionsArray.map(({title, items})=>({title, items})))
       }
     }); 
   }
@@ -81,7 +82,8 @@ class App extends React.Component {
 //LESSON 108 - To redirect when sign in process done. 
 const mapStateToProps = createStructuredSelector({ //Called when the store state changes 
   currentUser: selectCurrentUser
-})
+  // collectionsArray: selectCollectionForPreview //LESSON 163
+});
 
 //LESSON107 - mapDispatchToProps
 const mapDispatchToProps = dispatch => ({
