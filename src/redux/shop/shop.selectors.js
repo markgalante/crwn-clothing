@@ -10,12 +10,13 @@ export const selectCollections = createSelector(
 //converting the object into an array 
 export const selectCollectionForPreview = createSelector(
     [selectCollections], 
-    collections => Object.keys(collections).map(key => collections[key])
+    collections => 
+        collections ? Object.keys(collections).map(key => collections[key]) : [] //Edited L168
 ); 
 
 //Lesson 138
 export const selectCollection = collectionUrlParam => 
     createSelector(
         [selectCollections],
-        collections => collections[collectionUrlParam]
+        collections => (collections ? collections[collectionUrlParam] : null)
 );

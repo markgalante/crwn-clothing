@@ -1,8 +1,9 @@
-import SHOP_DATA from './shop.data'; 
+// import SHOP_DATA from './shop.data'; //Removed L168 
 import ShopActionTypes from './shop.types'; 
 
 const INITIAL_STATE = {
-    collections: SHOP_DATA
+    // collections: SHOP_DATA Removed L168
+    collections: null
 }; 
 
 const shopReducer = (state=INITIAL_STATE, action) => {
