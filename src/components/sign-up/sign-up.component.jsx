@@ -1,58 +1,50 @@
-import React from 'react'; 
+import React from 'react';
+import { connect } from 'react-redux'
 
-import FormInput from '../form-input/form-input.component'; 
-import CustomButton from '../cuttom-button/custom-button.component'; 
+import FormInput from '../form-input/form-input.component';
+import CustomButton from '../cuttom-button/custom-button.component';
 
-import { auth, createUserProfileDocument } from '../../firebase/firebase.utils' 
+import { signUpStart } from '../../redux/user/user.actions'
 
-import './sign-up.styles.scss'; 
+// import { auth, createUserProfileDocument } from '../../firebase/firebase.utils'
+
+import './sign-up.styles.scss';
 
 //LESSON 94; 
-class SignUp extends React.Component{
-    constructor(){
-        super(); 
-        
-        this.state={
-            displayName: '', 
-            email: '', 
-            password: '', 
+class SignUp extends React.Component {
+    constructor() {
+        super();
+
+        this.state = {
+            displayName: '',
+            email: '',
+            password: '',
             confirmPassword: ''
-        }; 
+        };
     }
 
-    handleChange = (event) => {
-        const { name, value } = event.target; 
-        this.setState({[name]: value}); 
-    }
+    handleSubmit = async event => {
+        event.preventDefault();
+        const { signUpStart } = this.props;
+        const { displayName, email, password, confirmPassword } = this.state;
 
-    handleSubmit = async (event) => {
-        event.preventDefault(); 
-
-        const { displayName, email, password, confirmPassword } = this.state; 
-
-        if(password !== confirmPassword){
-            alert("Passwords don't match"); 
-            return; 
+        if (password !== confirmPassword) {
+            alert("passwords don't match");
+            return;
         }
 
-        try{
-            const { user } = await auth.createUserWithEmailAndPassword(email, password);
-            await createUserProfileDocument(user, { displayName }); //Await for this to finish before setting state
+        signUpStart({ displayName, email, password });
+    };
 
-            this.setState({
-                displayName: '', 
-                email: '', 
-                password: '', 
-                confirmPassword: ''
-            });            
-        } catch(err){
-            console.error(err); 
-        }
-    }
+    handleChange = event => {
+        const { name, value } = event.target;
 
-    render(){
-        const { displayName, email, password, confirmPassword } = this.state; 
-        return(
+        this.setState({ [name]: value });
+    };
+
+    render() {
+        const { displayName, email, password, confirmPassword } = this.state;
+        return (
             <div className='sign-up'>
                 <h2 className='title'>I do not have an account</h2>
                 <span>Sign up with your email and password</span>
@@ -64,8 +56,7 @@ class SignUp extends React.Component{
                         onChange={this.handleChange}
                         label='Display Name'
                         required
-                    >
-                    </FormInput>
+                    />
                     <FormInput
                         type='email'
                         name='email'
@@ -73,8 +64,7 @@ class SignUp extends React.Component{
                         onChange={this.handleChange}
                         label='Email'
                         required
-                    >
-                    </FormInput>
+                    />
                     <FormInput
                         type='password'
                         name='password'
@@ -82,8 +72,7 @@ class SignUp extends React.Component{
                         onChange={this.handleChange}
                         label='Password'
                         required
-                    >
-                    </FormInput>
+                    />
                     <FormInput
                         type='password'
                         name='confirmPassword'
@@ -91,8 +80,7 @@ class SignUp extends React.Component{
                         onChange={this.handleChange}
                         label='Confirm Password'
                         required
-                    >
-                    </FormInput>
+                    />
                     <CustomButton type='submit'>SIGN UP</CustomButton>
                 </form>
 
@@ -101,4 +89,39 @@ class SignUp extends React.Component{
     }
 }
 
-export default SignUp; 
+const mapDispatchToProps = dispatch => ({
+    signUpStart: (userCredentials) => dispatch(signUpStart(userCredentials))
+})
+
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(SignUp);
+
+
+
+
+
+
+
+
+
+
+
+
+
+//REMOVED FROM Component Did Mount L195
+// try{
+            // const { user } = await auth.createUserWithEmailAndPassword(email, password);
+        //     await createUserProfileDocument(user, { displayName }); //Await for this to finish before setting state
+
+        //     this.setState({
+        //         displayName: '', 
+        //         email: '',
+        //         password: '', 
+        //         confirmPassword: ''
+        //     });            
+        // } catch(err){
+        //     console.error(err); 
+        // }
