@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom'; //Redirect added on L108 
 import { connect } from 'react-redux'; //L107
 import { createStructuredSelector } from 'reselect'; //LESSON 121
@@ -15,47 +15,40 @@ import CheckoutPage from './pages/checkout/checkout.component';
 import { selectCurrentUser } from './redux/user/user.selectors'; //LESSON 121
 import { checkUserSession } from './redux/user/user.actions' // L 191
 
-class App extends React.Component {
-  //DELETED IN LESSON 107 when using mapDispachToProps
-  // constructor(){
-  //   super(); 
+//Lesson 202: convert from class to functional component
+const App = ({ checkUserSession, currentUser }) => {
+  //constructor() DELETED IN LESSON 107 when using mapDispachToProps
 
-  //   this.state = {
-  //     currentUser: null 
-  //   }
-  // };  
+  //unsubscribeFromAuth = null; //calling a new method - default is null 
 
-  unsubscribeFromAuth = null; //calling a new method - default is null 
+  //LESSON 93 //componentDidMount()  //Google authentication sign-in //changed in lession 102 for useEffect
+  useEffect(() => {
+    checkUserSession();  
+  },[checkUserSession]);
 
-  //LESSON 93
-  componentDidMount() {  //Google authentication sign-in
-   const { checkUserSession } = this.props;
-   checkUserSession()
-  }
+  
 
-  componentWillUnmount() {
-    this.unsubscribeFromAuth();
-  }
+  // componentWillUnmount() {
+  //   this.unsubscribeFromAuth();
+  // } 
 
-  render() {
-    return (
-      <div>
-        <Header />
-        <Switch> {/* Makes sure only one is rendered. */}
-          <Route exact path='/' component={HomePage} />
-          <Route exact path='/checkout' component={CheckoutPage} />
-          <Route path='/shop' component={ShopPage} />
-          <Route exact path='/signin' render={() => //Redirect when sign in process done
-            this.props.currentUser ?
-              (<Redirect to='/' />) :
-              (<SignInAndSignUpPage />)
-          }
-          />
+  return (
+    <div>
+      <Header />
+      <Switch> {/* Makes sure only one is rendered. */}
+        <Route exact path='/' component={HomePage} />
+        <Route exact path='/checkout' component={CheckoutPage} />
+        <Route path='/shop' component={ShopPage} />
+        <Route exact path='/signin' render={() => //Redirect when sign in process done
+            currentUser ?
+            (<Redirect to='/' />) :
+            (<SignInAndSignUpPage />)
+        }
+        />
 
-        </Switch>
-      </div>
-    );
-  }
+      </Switch>
+    </div>
+  );
 }
 
 //LESSON 108 - To redirect when sign in process done. 
@@ -131,6 +124,6 @@ export default connect(
 //   setCurrentUser: user => dispatch(setCurrentUser(user))
 // });
 /** LESSON 107
- * Dispatch is a way for redux to know that whatever you're passing 
- * is going to be an action object that will be passed to every reducer. 
+ * Dispatch is a way for redux to know that whatever you're passing
+ * is going to be an action object that will be passed to every reducer.
  */
