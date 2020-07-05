@@ -17,7 +17,7 @@ import {
   createUserProfileDocument,
   getCurrentUser
 } from '../../firebase/firebase.utils';
-import collectionComponent from '../../pages/collection/collection.component';
+//import collectionComponent from '../../pages/collection/collection.component';
 
 export function* getSnapshotFromUserAuth(userAuth, additionalData) {
   try {
