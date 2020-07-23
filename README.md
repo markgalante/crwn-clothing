@@ -2,9 +2,16 @@
 
 This application was a code-along in the [Complete React Developer in 2020](https://www.udemy.com/course/complete-react-developer-zero-to-mastery/) course delivered on Udemy by [Zero To Mastery](https://zerotomastery.io/). It's an e-commerce clothing website that utilises a variety of features from React, Redux and Google's Firebase and Firestore. The application is deployed on Heroku - visit the current live version [here](https://crownclothingapp.herokuapp.com/). This application is currently in development with responsiveness issues.   
 
+Homepage: 
 ![Homepage](/homepage.png)
+
+Sign-in and sign-up page: 
 ![Sign-in and sign-up page]()
+
+Shop page: 
 ![Shop page](/shop-page.png)
+
+Payment page: 
 ![Payment](/payment.png)
 
 ## Installation: 
@@ -27,6 +34,7 @@ Navigate to client directory and run
 ## Stack
 <ul>
     <li> Web application framework with [Express](https://expressjs.com/). </li>
+    <li> Authorisation managed with Google [Firebase](https://firebase.google.com/). </li>
     <li> Server-side JavaScript code with [Node.Js](https://nodejs.org/en/). </li>
     <li> Front-end development with [React](https://reactjs.org/) </li>
     <li> Database hosting with [Google Firebase's Firestore](https://firebase.google.com/)  </li>
