@@ -1,7 +1,15 @@
 # Crwn Clothing
 
-This application was a code-along in the [Complete React Developer in 2020](https://www.udemy.com/course/complete-react-developer-zero-to-mastery/) course delivered on Udemy by [Zero To Mastery](https://zerotomastery.io/). It's an e-commerce clothing website that utilises a variety of features from React, Redux and Google's Firebase and Firestore. The application is deployed on Heroku - visit the current live version [here](https://crownclothingapp.herokuapp.com/). This application is currently in development with responsiveness issues.   
+This application was a code-along in the [Complete React Developer in 2020](https://www.udemy.com/course/complete-react-developer-zero-to-mastery/) course delivered on Udemy by [Zero To Mastery](https://zerotomastery.io/). It's an e-commerce clothing website that utilises a variety of features from React, Redux and Google's Firebase and Firestore. The application is deployed on Heroku - visit the current live version [here](https://crownclothingapp.herokuapp.com/). This application is currently in development with responsiveness issues.  
 
+## Table Of Contents
+- [Screenshots](#screenshots)
+- [Installation](#installation)
+- [Stack](#stack)
+- [Other APIs and Dependencies](#other-apis-and-dependencies)
+- [License](#license)
+
+## Screenshots
 ### Homepage: 
 ![Homepage](/homepage.png)
 
@@ -43,3 +51,5 @@ Navigate to client directory and run
 - Styling with [SASS/SCSS](https://sass-lang.com/).
 - Payment with [Stripe](https://stripe.com/)
 
+## License
+#### [MIT](./LICENSE)
